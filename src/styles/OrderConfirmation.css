@@ -1,0 +1,72 @@
+.confirmation-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.confirmation-box {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 3rem;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.confirmation-icon {
+  width: 70px;
+  height: 70px;
+  background: #a29bfe;
+  color: white;
+  font-size: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.confirmation-box h1 {
+  font-size: 1.8rem;
+  color: #1a1a2e;
+  margin-bottom: 0.8rem;
+}
+
+.confirmation-box p {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.confirmation-details {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.confirmation-details p {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.continue-shopping-btn {
+  padding: 0.9rem 2.5rem;
+  background: #1a1a2e;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s;
+}
+
+.continue-shopping-btn:hover {
+  background: #a29bfe;
+}

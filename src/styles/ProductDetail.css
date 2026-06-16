@@ -1,0 +1,150 @@
+.product-detail {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Main container — image left, info right */
+.detail-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+/* Image */
+.detail-image img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  max-height: 400px;
+}
+
+/* Info section */
+.detail-category {
+  font-size: 0.8rem;
+  color: #a29bfe;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.detail-info h1 {
+  font-size: 2rem;
+  color: #1a1a2e;
+  margin: 0.5rem 0;
+}
+
+.detail-price {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #1a1a2e;
+  margin: 1rem 0;
+}
+
+.detail-description {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+/* Buttons */
+.detail-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.add-cart-btn {
+  padding: 0.8rem 2rem;
+  background: #1a1a2e;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-cart-btn:hover {
+  background: #a29bfe;
+}
+
+.back-btn {
+  padding: 0.8rem 2rem;
+  border: 2px solid #1a1a2e;
+  color: #1a1a2e;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.back-btn:hover {
+  background: #1a1a2e;
+  color: white;
+}
+
+/* Not found */
+.not-found {
+  text-align: center;
+  padding: 4rem;
+}
+
+.not-found h2 {
+  font-size: 1.5rem;
+  color: #1a1a2e;
+  margin-bottom: 1rem;
+}
+
+.not-found a {
+  color: #a29bfe;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .detail-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .detail-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .detail-image img {
+    max-height: 300px;
+  }
+
+  .detail-info h1 {
+    font-size: 1.5rem;
+  }
+
+  .detail-price {
+    font-size: 1.4rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .product-detail {
+    padding: 1rem;
+  }
+
+  .detail-buttons {
+    flex-direction: column;
+  }
+
+  .add-cart-btn,
+  .back-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
