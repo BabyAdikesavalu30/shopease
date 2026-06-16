@@ -11,7 +11,7 @@ function Home() {
 
       <section className="hero">
         <div className="hero-content">
-          <p className="hero-tag">🛍️ Premium Men's Collection</p>
+          <p className="hero-tag">🛍️ Premium Men's Collection 2025</p>
           <h1>Shop Smart.<br />Live Better.</h1>
           <p className="hero-sub">
             Discover top quality men's products across Electronics,
