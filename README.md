@@ -20,7 +20,7 @@ A modern men's e-commerce website built with React.
 - localStorage
 
 ## Live Demo
-Coming soon!
+[View Live Site](https://shopease-phi-lime.vercel.app/)
 
 ## Author
 Baby P A
