@@ -1,15 +1,31 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import products from '../data/products';
 import ProductCard from '../components/ProductCard';
+import API_URL from '../api';
 import '../styles/Products.css';
 
 function Products() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortOrder, setSortOrder] = useState('default');
   const [searchQuery, setSearchQuery] = useState('');
 
   const location = useLocation();
+
+  // Fetch products from backend
+  useEffect(() => {
+    fetch(`${API_URL}/products`)
+      .then(res => res.json())
+      .then(data => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.log('Error fetching products:', err);
+        setLoading(false);
+      });
+  }, []);
 
   // Read search query from URL
   useEffect(() => {
@@ -45,6 +61,15 @@ function Products() {
     if (sortOrder === 'high') return b.price - a.price;
     return 0;
   });
+
+  if (loading) {
+    return (
+      <div className="loading">
+        <div className="spinner"></div>
+        <p>Loading products...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="products-page">
@@ -101,7 +126,7 @@ function Products() {
       ) : (
         <div className="products-grid">
           {sorted.map(product => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
       )}

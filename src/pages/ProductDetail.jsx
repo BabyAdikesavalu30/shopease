@@ -1,12 +1,36 @@
 import { useParams, Link } from 'react-router-dom';
-import products from '../data/products';
+import { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
+import API_URL from '../api';
 import '../styles/ProductDetail.css';
 
 function ProductDetail() {
   const { id } = useParams();
   const { addToCart } = useCart();
-  const product = products.find(p => p.id === parseInt(id));
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${API_URL}/products/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        setProduct(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.log('Error:', err);
+        setLoading(false);
+      });
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="loading">
+        <div className="spinner"></div>
+        <p>Loading product...</p>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -22,7 +46,9 @@ function ProductDetail() {
       <div className="detail-container">
 
         <div className="detail-image">
-          <img src={product.image} alt={product.name}
+          <img
+            src={product.image}
+            alt={product.name}
             onError={e => {
               e.target.src = "https://placehold.co/400x300?text=No+Image";
             }}

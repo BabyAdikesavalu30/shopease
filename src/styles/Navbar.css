@@ -117,3 +117,38 @@
     gap: 1rem;
   }
 }
+
+.user-name {
+  color: #a29bfe;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.logout-btn {
+  background: none;
+  border: 1.5px solid #a29bfe;
+  color: #a29bfe;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.logout-btn:hover {
+  background: #a29bfe;
+  color: #1a1a2e;
+}
+
+.register-btn {
+  background: #a29bfe !important;
+  color: #1a1a2e !important;
+  padding: 0.3rem 0.9rem !important;
+  border-radius: 15px !important;
+  font-weight: 600 !important;
+}
+
+.register-btn:hover {
+  background: white !important;
+  color: #1a1a2e !important;
+}

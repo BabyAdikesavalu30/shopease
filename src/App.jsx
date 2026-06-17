@@ -8,6 +8,8 @@ import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import OrderConfirmation from './pages/OrderConfirmation';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import { useCart } from './context/CartContext';
 import './styles/App.css';
 import './styles/Products.css';
@@ -16,6 +18,7 @@ import './styles/Cart.css';
 import './styles/Checkout.css';
 import './styles/OrderConfirmation.css';
 import './styles/Footer.css';
+import './styles/Auth.css';
 
 function AppContent() {
   const [showTop, setShowTop] = useState(false);
@@ -31,7 +34,6 @@ function AppContent() {
     <>
       <Navbar />
 
-      {/* Toast Notification */}
       {toast && (
         <div className="toast">
           ✅ {toast}
@@ -45,6 +47,8 @@ function AppContent() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
 
       <Footer />
