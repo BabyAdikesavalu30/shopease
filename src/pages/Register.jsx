@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import API_URL from '../api.js';
 import '../styles/Auth.css';
 
 function Register() {
@@ -42,25 +41,32 @@ function Register() {
     }
     setLoading(true);
     try {
-      const res = await fetch(`${API_URL}/users/register`, {
+      const response = await fetch('http://localhost:5000/api/users/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           name: form.name,
           email: form.email,
           password: form.password
         })
       });
-      const data = await res.json();
-      if (!res.ok) {
+
+      const data = await response.json();
+      console.log('Response:', data);
+
+      if (!response.ok) {
         setErrors({ email: data.message });
         setLoading(false);
         return;
       }
+
       login(data.user, data.token);
       navigate('/');
     } catch (err) {
-      setErrors({ email: 'Something went wrong. Try again!' });
+      console.log('Fetch error:', err);
+      setErrors({ email: 'Cannot connect to server. Make sure backend is running!' });
       setLoading(false);
     }
   }
@@ -123,7 +129,11 @@ function Register() {
           {errors.confirmPassword && <span className="error-msg">{errors.confirmPassword}</span>}
         </div>
 
-        <button className="auth-btn" onClick={handleRegister} disabled={loading}>
+        <button
+          className="auth-btn"
+          onClick={handleRegister}
+          disabled={loading}
+        >
           {loading ? 'Creating account...' : 'Create Account'}
         </button>
 
