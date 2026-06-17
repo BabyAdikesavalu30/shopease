@@ -51,10 +51,16 @@ function Navbar() {
         </NavLink>
 
         {isLoggedIn ? (
-          <>
-            <span className="user-name">Hi, {user.name.split(' ')[0]}!</span>
-            <button className="logout-btn" onClick={handleLogout}>Logout</button>
-          </>
+  <>
+    <span className="user-name">Hi, {user.name.split(' ')[0]}!</span>
+    <NavLink
+      to="/myorders"
+      className={({ isActive }) => isActive ? 'active' : ''}
+    >
+      My Orders
+    </NavLink>
+    <button className="logout-btn" onClick={handleLogout}>Logout</button>
+  </>
         ) : (
           <>
             <NavLink to="/login" className={({ isActive }) => isActive ? 'active' : ''}>

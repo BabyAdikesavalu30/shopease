@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import '../styles/Checkout.css';
 
 function Checkout() {
   const { cartItems, totalItems, totalPrice, clearCart } = useCart();
+  const { isLoggedIn, token } = useAuth();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -17,14 +19,13 @@ function Checkout() {
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  // Handle input change
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: '' });
   }
 
-  // Validate form
   function validate() {
     const newErrors = {};
     if (!form.name.trim()) newErrors.name = 'Name is required';
@@ -39,15 +40,54 @@ function Checkout() {
     return newErrors;
   }
 
-  // Handle place order
-  function handlePlaceOrder() {
+  async function handlePlaceOrder() {
+    if (!isLoggedIn) {
+      navigate('/login');
+      return;
+    }
+
     const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-    clearCart();
-    navigate('/order-confirmation');
+
+    setLoading(true);
+    try {
+      const res = await fetch('http://localhost:5000/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          items: cartItems.map(item => ({
+            product: item._id,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+            image: item.image
+          })),
+          totalPrice,
+          deliveryDetails: form
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert('Order failed! Please try again.');
+        setLoading(false);
+        return;
+      }
+
+      clearCart();
+      navigate('/order-confirmation');
+    } catch (err) {
+      console.log('Order error:', err);
+      alert('Something went wrong!');
+      setLoading(false);
+    }
   }
 
   if (cartItems.length === 0) {
@@ -59,13 +99,21 @@ function Checkout() {
     );
   }
 
+  if (!isLoggedIn) {
+    return (
+      <div className="checkout-empty">
+        <h2>Please login to checkout!</h2>
+        <button onClick={() => navigate('/login')}>Login Now</button>
+      </div>
+    );
+  }
+
   return (
     <div className="checkout-page">
       <h1>Checkout</h1>
 
       <div className="checkout-container">
 
-        {/* Left — Delivery Form */}
         <div className="checkout-form">
           <h2>Delivery Details</h2>
 
@@ -148,16 +196,14 @@ function Checkout() {
               {errors.pincode && <span className="error-msg">{errors.pincode}</span>}
             </div>
           </div>
-
         </div>
 
-        {/* Right — Order Summary */}
         <div className="checkout-summary">
           <h2>Order Summary</h2>
 
           <div className="summary-items">
             {cartItems.map(item => (
-              <div key={item.id} className="summary-item">
+              <div key={item._id} className="summary-item">
                 <img src={item.image} alt={item.name} />
                 <div className="summary-item-info">
                   <p className="summary-item-name">{item.name}</p>
@@ -186,10 +232,10 @@ function Checkout() {
           <button
             className="place-order-btn"
             onClick={handlePlaceOrder}
+            disabled={loading}
           >
-            Place Order
+            {loading ? 'Placing order...' : 'Place Order'}
           </button>
-
         </div>
 
       </div>

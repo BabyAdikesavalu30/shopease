@@ -19,6 +19,8 @@ import './styles/Checkout.css';
 import './styles/OrderConfirmation.css';
 import './styles/Footer.css';
 import './styles/Auth.css';
+import MyOrders from './pages/MyOrders';
+import './styles/MyOrders.css';
 
 function AppContent() {
   const [showTop, setShowTop] = useState(false);
@@ -49,6 +51,7 @@ function AppContent() {
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/myorders" element={<MyOrders />} />
       </Routes>
 
       <Footer />
