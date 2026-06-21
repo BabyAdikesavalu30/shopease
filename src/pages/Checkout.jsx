@@ -73,7 +73,7 @@ function Checkout() {
         })
       });
 
-      const data = await res.json();
+      await res.json();
 
       if (!res.ok) {
         alert('Order failed! Please try again.');
