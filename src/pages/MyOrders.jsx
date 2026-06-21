@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import API_URL from '../api.js';
 import '../styles/MyOrders.css';
 
 function MyOrders() {
@@ -14,7 +15,7 @@ function MyOrders() {
       navigate('/login');
       return;
     }
-    fetch('http://localhost:5000/api/orders/myorders', {
+    fetch(`${API_URL}/orders/myorders`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
